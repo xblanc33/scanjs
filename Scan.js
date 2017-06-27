@@ -43,6 +43,13 @@ class Scan {
             }
         }
     }
+
+    connect(v, w) {
+    	return this.graph.vertices.some( u => {
+    		return this.reach(u,v) && this.reach(u,w);
+    	})
+
+    }
 }
 
 

@@ -67,20 +67,20 @@ describe('Scan', function() {
 
 
     describe('#reach()', function() {
-        it('should be true', function() {
+        it('should state that a reach b', function() {
         	var graph = initGraph();
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(true, scan.reach('a','b'));
         });
 
-        it('should be false', function() {
+        it('should state that a does not reach b', function() {
         	var graph = initGraph();
         	graph.addVertice('d');
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(false, scan.reach('a','d'));
         });
 
-        it('should be false', function() {
+        it('should state that a does not reach d', function() {
         	var graph = initGraph();
         	graph.addVertice('d');
         	graph.addEdge('b','d');
@@ -88,12 +88,28 @@ describe('Scan', function() {
             assert.equal(false, scan.reach('a','d'));
         });
 
-        it('should be true', function() {
+        it('should state that a reach d', function() {
         	var graph = initGraph();
         	graph.addVertice('d');
         	graph.addEdge('b','d');
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(true, scan.reach('a','d'));
+        });
+    });
+
+
+    describe('#connect()', function() {
+        it('should state that b is connected to c', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(true, scan.connect('b','c'));
+        });
+
+        it('should state that b is connected to d', function() {
+        	var graph = initGraph();
+        	graph.addVertice('d');
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(false, scan.connect('b','d'));
         });
     });
 });
