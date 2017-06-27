@@ -75,5 +75,15 @@ describe('Graph', function() {
         	graph.addVertice('v2');
             assert.equal(0, graph.similarity('v1','v2'));
         });
+
+        it('it should return 2/Math.sqrt(6)', function() {
+        	var graph = new Graph();
+        	graph.addVertice('v1');
+        	graph.addVertice('v2');
+        	graph.addVertice('v3');
+        	graph.addEdge('v1','v2');
+        	graph.addEdge('v1','v3');
+            assert.equal(2/Math.sqrt(6), graph.similarity('v1','v2'));
+        });
     });
 });

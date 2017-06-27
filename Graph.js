@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 class Graph {
     constructor() {
         this.vertices = [];
@@ -31,6 +33,15 @@ class Graph {
     	var wNeighbor = this.neighborhood(w);
     	var vInterw = vNeighbor.filter( vertice => {return (wNeighbor.indexOf(vertice) !== -1);});
     	return vInterw.length / Math.sqrt(vNeighbor.length * wNeighbor.length);
+    }
+
+    saveCSV(fileName, head) {
+
+
+    }
+
+    loadCSV(fileName, head) {
+
     }
 }
 
