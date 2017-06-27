@@ -113,7 +113,7 @@ describe('Scan', function() {
         });
     });
 
-     describe('#isCluster()', function() {
+    describe('#isCluster()', function() {
         it('should state that a,b,c is a cluster', function() {
         	var graph = initGraph();
         	var scan = new Scan(0.5, 3, graph);
@@ -123,6 +123,19 @@ describe('Scan', function() {
         	var graph = initGraph();
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(false, scan.isCluster(['a','b']));
+        });
+    });
+
+    describe('#isClustering()', function() {
+        it('should state that [[a,b,c]] is a clustering', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(true, scan.isClustering([['a','b','c']]));
+        });
+        it('should state that [[a,b],[c]] is not a cluster', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(false, scan.isClustering([['a','b'],['c']]));
         });
     });
 });

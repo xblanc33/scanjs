@@ -24,7 +24,7 @@ class Scan {
     }
 
     recursiveReach(v, w, visited) {
-    	var newVisited = visited.concat([v]);
+        var newVisited = visited.concat([v]);
         if (this.dirReach(v, w)) {
             return true;
         } else {
@@ -45,34 +45,56 @@ class Scan {
     }
 
     connect(v, w) {
-    	return this.graph.vertices.some( u => {
-    		return this.reach(u,v) && this.reach(u,w);
-    	})
+        return this.graph.vertices.some(u => {
+            return this.reach(u, v) && this.reach(u, w);
+        })
 
     }
 
     isCluster(cluster) {
-    	for (var i = 0; i < this.graph.vertices.length; i++) {
-    		for (var j = 0; j < this.graph.vertices.length; j++) {
-    			var v = this.graph.vertices[i];
-    			var w = this.graph.vertices[j];
+        for (var i = 0; i < this.graph.vertices.length; i++) {
+            for (var j = 0; j < this.graph.vertices.length; j++) {
+                var v = this.graph.vertices[i];
+                var w = this.graph.vertices[j];
 
-    			if ((cluster.indexOf(v) !== -1) && (cluster.indexOf(w) !== -1)) {
-    				if (! this.connect(v,w)) {
-    					return false;
-    				}
-    			}
+                if ((cluster.indexOf(v) !== -1) && (cluster.indexOf(w) !== -1)) {
+                    if (!this.connect(v, w)) {
+                        return false;
+                    }
+                }
 
-    			if (cluster.indexOf(v) !== -1) {
-    				if (this.reach(v,w)) {
-    					if (cluster.indexOf(w) === -1 ) {
-    						return false;
-    					}
-    				}
-    			}
-    		}
-    	}
-    	return true;
+                if (cluster.indexOf(v) !== -1) {
+                    if (this.reach(v, w)) {
+                        if (cluster.indexOf(w) === -1) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    isClustering(partition) {
+        var visited = [];
+        for (var i = 0; i < partition.length; i++) {
+            var cluster = partition[i];
+            for (var j = 0; j < cluster.length; j++) {
+                if (visited.indexOf(cluster[j]) !== -1) {
+                    return false;
+                } else {
+                    if (this.graph.vertices.indexOf(cluster[j]) === -1) {
+                        return false;
+                    } else {
+                        visited.push(cluster[j]);
+                    }
+                }
+            }
+            if (!this.isCluster(cluster)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
