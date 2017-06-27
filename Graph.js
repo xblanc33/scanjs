@@ -29,7 +29,7 @@ class Graph {
     similarity(v, w) {
     	var vNeighbor = this.neighborhood(v);
     	var wNeighbor = this.neighborhood(w);
-    	var vInterw = vNeighbor.filter( vertice => return wNeighbor.indexOf(vertice) !== -1);
+    	var vInterw = vNeighbor.filter( vertice => {return (wNeighbor.indexOf(vertice) !== -1);});
     	return vInterw.length / Math.sqrt(vNeighbor.length * wNeighbor.length);
     }
 }
