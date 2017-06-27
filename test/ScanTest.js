@@ -64,4 +64,36 @@ describe('Scan', function() {
             assert.equal(false, scan.dirReach('c','b'));
         });
     });
+
+
+    describe('#reach()', function() {
+        it('should be true', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(true, scan.reach('a','b'));
+        });
+
+        it('should be false', function() {
+        	var graph = initGraph();
+        	graph.addVertice('d');
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(false, scan.reach('a','d'));
+        });
+
+        it('should be false', function() {
+        	var graph = initGraph();
+        	graph.addVertice('d');
+        	graph.addEdge('b','d');
+        	var scan = new Scan(0.9, 3, graph);
+            assert.equal(false, scan.reach('a','d'));
+        });
+
+        it('should be true', function() {
+        	var graph = initGraph();
+        	graph.addVertice('d');
+        	graph.addEdge('b','d');
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(true, scan.reach('a','d'));
+        });
+    });
 });
