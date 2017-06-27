@@ -59,4 +59,14 @@ describe('Graph', function() {
             assert.equal('v1', graph.neighborhood('v1')[1]);
         });
     });
+
+    describe('#similarity()', function() {
+        it('it should return 1', function() {
+        	var graph = new Graph();
+        	graph.addVertice('v1');
+        	graph.addVertice('v2');
+        	graph.addEdge('v1','v2');
+            assert.equal(1, graph.similarity('v1','v2'));
+        });
+    });
 });
