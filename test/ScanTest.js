@@ -50,4 +50,18 @@ describe('Scan', function() {
         	assert.equal(false, scan.isCore('a'));
         });
     });
+
+    describe('#dirReach()', function() {
+        it('should be true', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(true, scan.dirReach('a','b'));
+        });
+
+        it('should be false', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(false, scan.dirReach('c','b'));
+        });
+    });
 });

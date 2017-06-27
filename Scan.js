@@ -14,6 +14,10 @@ class Scan {
 	isCore(v) {
 		return this.epsNeighborhood(v).length >= this.mu;
 	}
+
+	dirReach(v, w) {
+		return (this.isCore(v) && (this.epsNeighborhood(v).indexOf(w) !== 1));
+	}
 }
 
 
