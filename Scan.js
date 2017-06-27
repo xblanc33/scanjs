@@ -50,6 +50,30 @@ class Scan {
     	})
 
     }
+
+    isCluster(cluster) {
+    	for (var i = 0; i < this.graph.vertices.length; i++) {
+    		for (var j = 0; j < this.graph.vertices.length; j++) {
+    			var v = this.graph.vertices[i];
+    			var w = this.graph.vertices[j];
+
+    			if ((cluster.indexOf(v) !== -1) && (cluster.indexOf(w) !== -1)) {
+    				if (! this.connect(v,w)) {
+    					return false;
+    				}
+    			}
+
+    			if (cluster.indexOf(v) !== -1) {
+    				if (this.reach(v,w)) {
+    					if (cluster.indexOf(w) === -1 ) {
+    						return false;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	return true;
+    }
 }
 
 

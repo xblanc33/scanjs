@@ -38,13 +38,13 @@ describe('Scan', function() {
 
 
     describe('#isCore()', function() {
-        it('should be true', function() {
+        it('should state that a is core', function() {
         	var graph = initGraph();
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(true, scan.isCore('a'));
         });
 
-        it('should be false', function() {
+        it('should state that a is not core', function() {
         	var graph = initGraph();
         	var scan = new Scan(0.9, 2, graph);
         	assert.equal(false, scan.isCore('a'));
@@ -52,13 +52,13 @@ describe('Scan', function() {
     });
 
     describe('#dirReach()', function() {
-        it('should be true', function() {
+        it('should state that a directly reach b', function() {
         	var graph = initGraph();
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(true, scan.dirReach('a','b'));
         });
 
-        it('should be false', function() {
+        it('should state that c does not directly reach b', function() {
         	var graph = initGraph();
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(false, scan.dirReach('c','b'));
@@ -110,6 +110,19 @@ describe('Scan', function() {
         	graph.addVertice('d');
         	var scan = new Scan(0.5, 3, graph);
             assert.equal(false, scan.connect('b','d'));
+        });
+    });
+
+     describe('#isCluster()', function() {
+        it('should state that a,b,c is a cluster', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(true, scan.isCluster(['a','b','c']));
+        });
+        it('should state that a,b is not a cluster', function() {
+        	var graph = initGraph();
+        	var scan = new Scan(0.5, 3, graph);
+            assert.equal(false, scan.isCluster(['a','b']));
         });
     });
 });
