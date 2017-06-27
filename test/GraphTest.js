@@ -68,5 +68,12 @@ describe('Graph', function() {
         	graph.addEdge('v1','v2');
             assert.equal(1, graph.similarity('v1','v2'));
         });
+
+        it('it should return 0', function() {
+        	var graph = new Graph();
+        	graph.addVertice('v1');
+        	graph.addVertice('v2');
+            assert.equal(0, graph.similarity('v1','v2'));
+        });
     });
 });
