@@ -96,6 +96,68 @@ class Scan {
         }
         return true;
     }
+
+    isBridge(v, clusterX, clusterY) {
+        if (!isCluster(clusterX)) {
+            return false;
+        }
+        if (!isCluster(clusterY)) {
+            return false;
+        }
+        if (this.graph.vertices.indexOf(v) === -1) {
+            return false;
+        }
+        if (clusterX.indexOf(v) !== -1) {
+            return false;
+        }
+        if (clusterY.indexOf(v) !== -1) {
+            return false;
+        }
+        var neighb = this.graph.neighborhood(v);
+        var tox = neighb.some(u => {
+            return clusterX.indexOf(u) !== -1
+        });
+        var toy = neighb.some(u => {
+            return clusterY.indexOf(u) !== -1
+        });
+        return tox && toy;
+    }
+
+    isHub(v, partition) {
+        if (!partition.every(cluster => {
+                return cluster.indexOf(v) === -1;
+            })) {
+            return false;
+        }
+        for (var i = 0; i < partition.length; i++) {
+        	var clusterX = partition[i];
+        	for (var j = 1; j < partition.length; j++) {
+        		var clusterY = partition[j];
+        		if (this.isBridge(v, clusterX, clusterY)) {
+        			return true;
+        		}
+        	}
+        }
+        return false;
+    }
+
+    isOutlier(v, partition) {
+    	if (!partition.every(cluster => {
+                return cluster.indexOf(v) === -1;
+            })) {
+            return false;
+        }
+        for (var i = 0; i < partition.length; i++) {
+        	var clusterX = partition[i];
+        	for (var j = 1; j < partition.length; j++) {
+        		var clusterY = partition[j];
+        		if (this.isBridge(v, clusterX, clusterY)) {
+        			return false;
+        		}
+        	}
+        }
+        return true;
+    }
 }
 
 
