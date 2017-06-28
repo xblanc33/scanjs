@@ -41,10 +41,6 @@ graph.saveCSV('./SIGKDD.csv',true, (err,data) => {
 
 
 
-
-scan = new Scan(0.6, 6, graph)
-
-
 function createSIGKDDGraph() {
 	var graph = new Graph();
 	for (var i = 0; i < 14; i++) {
