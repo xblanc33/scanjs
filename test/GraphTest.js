@@ -86,4 +86,20 @@ describe('Graph', function() {
             assert.equal(2/Math.sqrt(6), graph.similarity('v1','v2'));
         });
     });
+
+
+    describe('#save()', function() {
+        it('it should save graph into file', function() {
+            var graph = new Graph();
+            graph.addVertice('v1');
+            graph.addVertice('v2');
+            graph.addEdge('v1','v2');
+            graph.saveCSV('./test/test.csv', true, (err, data) => {
+                if (!err) {
+                    assert(true);
+                }
+            })
+            
+        });
+    });
 });
