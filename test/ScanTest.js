@@ -100,7 +100,6 @@ describe('Scan', function() {
         	var graph = createSIGKDDGraph();
         	var scan = new Scan(0.6, 6, graph);
         	var neigh12 = scan.epsNeighborhood(12);
-        	console.log(neigh12);
             assert.equal(6 , neigh12.length);
             assert.notEqual(-1 , neigh12.indexOf(7));
             assert.notEqual(-1 , neigh12.indexOf(8));

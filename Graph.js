@@ -32,7 +32,8 @@ class Graph {
         var vNeighbor = this.neighborhood(v);
         var wNeighbor = this.neighborhood(w);
         var vInterw = vNeighbor.filter(vertice => {
-            return (wNeighbor.indexOf(vertice) !== -1); });
+            return (wNeighbor.indexOf(vertice) !== -1);
+        });
         return vInterw.length / Math.sqrt(vNeighbor.length * wNeighbor.length);
     }
 
@@ -42,7 +43,7 @@ class Graph {
             csv = csv + this.vertices.join(',') + '\r\n';
         }
         for (var i = 0; i < this.vertices.length; i++) {
-            var row="";
+            var row = "";
             for (var j = 0; j < this.vertices.length; j++) {
                 var v = this.vertices[i];
                 var w = this.vertices[j];
@@ -50,7 +51,7 @@ class Graph {
                 if (j > 0) {
                     row = row + ',';
                 }
-                if (this.edges[v].indexOf(w) !== -1 ) {
+                if (this.edges[v].indexOf(w) !== -1) {
                     row = row + '1';
                 } else {
                     row = row + '0';
@@ -62,7 +63,7 @@ class Graph {
     }
 
     static loadCSV(fileName, head, callback) {
-        fs.readFile(fileName, (err, data) => {
+        fs.readFile(fileName, 'utf8', (err, data) => {
             if (err) {
                 callback(err, null);
             } else {
@@ -77,10 +78,26 @@ class Graph {
                     }
                 }
 
-                
+                for (var i = 0; i < allTextLines.length; i++) {
+                    if (!head || i > 0) {
+                        var indice = i;
+                        if (head) {
+                            indice = i - 1;
+                        }
 
+
+                        var entries = allTextLines[i].split(',');
+                        for (var j = 0; j < entries.length; j++) {
+                            if (entries[j] === '1') {
+                                graph.addEdge(graph.vertices[indice],graph.vertices[j]);
+                            }
+                        }
+                    }
+                }
+
+                callback(null, graph);
             }
-        })
+        });
 
     }
 }
