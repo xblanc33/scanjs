@@ -282,8 +282,8 @@ describe('Scan', function() {
         it('should be of with the SIGKDD clustering', function() {
         	var graph = createSIGKDDGraph();
         	var scan = new Scan(0.6, 6, graph);
-        	var partition = [[0,1,2,3,4,5],[7,8,9,10,11,12]];
-        	assert.equal(true,scan.isClustering(partition));
+        	var clustering = [[0,1,2,3,4,5],[7,8,9,10,11,12]];
+        	assert.equal(true,scan.isClustering(clustering));
 
         });
     });
@@ -295,13 +295,34 @@ describe('Scan', function() {
         	var scan = new Scan(0.6, 6, graph);
             assert.equal(true, scan.isHub(6, [[0,1,2,3,4,5],[7,8,9,10,11,12]]));
         });
+
+        it('should state that 13 is not a hub', function() {
+        	var graph = createSIGKDDGraph();
+        	var scan = new Scan(0.6, 6, graph);
+            assert.equal(false, scan.isHub(13, [[0,1,2,3,4,5],[7,8,9,10,11,12]]));
+        });
     });
 
     describe('#isOutlier()', function() {
         it('should state that 13 is Outlier', function() {
         	var graph = createSIGKDDGraph();
         	var scan = new Scan(0.6, 6, graph);
-            assert.equal(true, scan.isHub(13, [[0,1,2,3,4,5],[7,8,9,10,11,12]]));
+            assert.equal(true, scan.isOutlier(13, [[0,1,2,3,4,5],[7,8,9,10,11,12]]));
+        });
+    });
+
+    describe('#doClustering()', function() {
+        it('should return [[0,1,2,3,4,5],[7,8,9,10,11,12]] as a clustering, [6] as hub and [13] as outlier', function() {
+        	var graph = createSIGKDDGraph();
+        	var scan = new Scan(0.6, 6, graph);
+        	var result = scan.doClustering();
+            assert.equal(true, scan.isClustering(result.clustering));
+            result.hubs.forEach(hub => {
+            	assert.equal(true, scan.isHub(hub, result.clustering));
+            });
+            result.outliers.forEach(outlier => {
+            	assert.equal(true, scan.isOutlier(outlier, result.clustering));
+            });
         });
     });
 });

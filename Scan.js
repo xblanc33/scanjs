@@ -75,10 +75,10 @@ class Scan {
         return true;
     }
 
-    isClustering(partition) {
+    isClustering(clustering) {
         var visited = [];
-        for (var i = 0; i < partition.length; i++) {
-            var cluster = partition[i];
+        for (var i = 0; i < clustering.length; i++) {
+            var cluster = clustering[i];
             for (var j = 0; j < cluster.length; j++) {
                 if (visited.indexOf(cluster[j]) !== -1) {
                     return false;
@@ -123,40 +123,94 @@ class Scan {
         return tox && toy;
     }
 
-    isHub(v, partition) {
-        if (!partition.every(cluster => {
+    isHub(v, clustering) {
+        if (!clustering.every(cluster => {
                 return cluster.indexOf(v) === -1;
             })) {
             return false;
         }
-        for (var i = 0; i < partition.length; i++) {
-        	var clusterX = partition[i];
-        	for (var j = 1; j < partition.length; j++) {
-        		var clusterY = partition[j];
-        		if (this.isBridge(v, clusterX, clusterY)) {
-        			return true;
-        		}
-        	}
+        for (var i = 0; i < clustering.length; i++) {
+            var clusterX = clustering[i];
+            for (var j = i+1; j < clustering.length; j++) {
+                var clusterY = clustering[j];
+                if (this.isBridge(v, clusterX, clusterY)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
 
-    isOutlier(v, partition) {
-    	if (!partition.every(cluster => {
+    isOutlier(v, clustering) {
+        if (!clustering.every(cluster => {
                 return cluster.indexOf(v) === -1;
             })) {
             return false;
         }
-        for (var i = 0; i < partition.length; i++) {
-        	var clusterX = partition[i];
-        	for (var j = 1; j < partition.length; j++) {
-        		var clusterY = partition[j];
-        		if (this.isBridge(v, clusterX, clusterY)) {
-        			return false;
-        		}
-        	}
+        for (var i = 0; i < clustering.length; i++) {
+            var clusterX = clustering[i];
+            for (var j = i+1; j < clustering.length; j++) {
+                var clusterY = clustering[j];
+                if (this.isBridge(v, clusterX, clusterY)) {
+                    return false;
+                }
+            }
         }
         return true;
+    }
+
+    doClustering() {
+        var nonMemberVertices = [];
+        var classifiedVertices = [];
+        var clustering = [];
+        var hubs = [];
+        var outliers = [];
+
+        this.graph.vertices.forEach(v => {
+            if (this.isCore(v)) {
+                var newCluster = [];
+                clustering.push(newCluster);
+                var queue = this.epsNeighborhood(v);
+                while (queue.length > 0) {
+                    var y = queue.shift();
+
+                    this.graph.vertices.forEach(x => {
+                        if (this.dirReach(y, x)) {
+                            if (classifiedVertices.indexOf(x) === -1) {
+                                newCluster.push(x);
+                                classifiedVertices.push(x);
+                                queue.push(x);
+                                var nonMbrXID = nonMemberVertices.indexOf(x);
+                                if (nonMbrXID !== -1) {
+                                    nonMemberVertices.splice(nonMbrXID, 1);
+                                }
+                            }
+                        }
+                    });
+
+                }
+            } else {
+                if (classifiedVertices.indexOf(v) === -1) {
+                    nonMemberVertices.push(v);
+                }
+            }
+        });
+
+
+
+        nonMemberVertices.forEach(v => {
+            if (this.isHub(v, clustering)) {
+                hubs.push(v);
+            } else {
+                outliers.push(v);
+            }
+        });
+
+        return {
+            clustering: clustering,
+            hubs: hubs,
+            outliers: outliers
+        }
     }
 }
 
