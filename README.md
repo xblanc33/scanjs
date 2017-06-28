@@ -17,8 +17,8 @@ npm install scanjs
 # use (index.js)
 
 ~~~~
-Graph = require('./Graph.js').Graph;
-Scan = require('./Scan.js').Scan;
+Graph = require('scanjs').Graph;
+Scan = require('scanjs').Scan;
 
 var graph = createSIGKDDGraph();
 graph.saveCSV('./SIGKDD.csv',true, (err,data) => {

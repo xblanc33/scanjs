@@ -3,4 +3,4 @@ Scan = require('./Scan.js').Scan;
 
 
 module.exports.Scan = Scan;
-module.exports.Graph = Scan;
+module.exports.Graph = Graph;
