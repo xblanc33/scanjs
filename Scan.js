@@ -98,10 +98,10 @@ class Scan {
     }
 
     isBridge(v, clusterX, clusterY) {
-        if (!isCluster(clusterX)) {
+        if (!this.isCluster(clusterX)) {
             return false;
         }
-        if (!isCluster(clusterY)) {
+        if (!this.isCluster(clusterY)) {
             return false;
         }
         if (this.graph.vertices.indexOf(v) === -1) {

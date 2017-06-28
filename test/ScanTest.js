@@ -287,4 +287,13 @@ describe('Scan', function() {
 
         });
     });
+
+
+    describe('#isHub()', function() {
+        it('should state that 6 is a hub', function() {
+        	var graph = createSIGKDDGraph();
+        	var scan = new Scan(0.6, 6, graph);
+            assert.equal(true, scan.isHub(6, [[0,1,2,3,4,5],[7,8,9,10,11,12]]));
+        });
+    });
 });
