@@ -1,18 +1,23 @@
+var Cache = require('./Cache.js').Cache;
+
 class Scan {
     constructor(eps, mu, graph) {
         this.eps = eps;
         this.mu = mu;
+        this.cache = new Cache(graph, eps, mu);
         this.graph = graph;
     }
 
     epsNeighborhood(v) {
-        return this.graph.neighborhood(v).filter(vertice => {
+        /*return this.graph.neighborhood(v).filter(vertice => {
             return (this.graph.similarity(v, vertice) >= this.eps);
-        })
+        })*/
+        return this.cache.epsNeighborhood(v);
     }
 
     isCore(v) {
-        return this.epsNeighborhood(v).length >= this.mu;
+        //return this.epsNeighborhood(v).length >= this.mu;
+        return this.cache.isCore(v);
     }
 
     dirReach(v, w) {
@@ -211,6 +216,10 @@ class Scan {
             hubs: hubs,
             outliers: outliers
         }
+    }
+
+    createCache() {
+
     }
 }
 

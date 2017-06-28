@@ -14,7 +14,7 @@ It provides two JS classes.
 npm install scanjs
 
 
-# use (index.js)
+# use it
 
 ~~~~
 Graph = require('scanjs').Graph;
