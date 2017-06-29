@@ -136,7 +136,7 @@ class Scan {
         }
         for (var i = 0; i < clustering.length; i++) {
             var clusterX = clustering[i];
-            for (var j = i+1; j < clustering.length; j++) {
+            for (var j = i + 1; j < clustering.length; j++) {
                 var clusterY = clustering[j];
                 if (this.isBridge(v, clusterX, clusterY)) {
                     return true;
@@ -154,7 +154,7 @@ class Scan {
         }
         for (var i = 0; i < clustering.length; i++) {
             var clusterX = clustering[i];
-            for (var j = i+1; j < clustering.length; j++) {
+            for (var j = i + 1; j < clustering.length; j++) {
                 var clusterY = clustering[j];
                 if (this.isBridge(v, clusterX, clusterY)) {
                     return false;
@@ -194,10 +194,9 @@ class Scan {
                     });
 
                 }
-            } else {
-                if (classifiedVertices.indexOf(v) === -1) {
-                    nonMemberVertices.push(v);
-                }
+            }
+            if (classifiedVertices.indexOf(v) === -1) {
+                nonMemberVertices.push(v);
             }
         });
 
