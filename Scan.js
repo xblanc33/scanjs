@@ -103,12 +103,6 @@ class Scan {
     }
 
     isBridge(v, clusterX, clusterY) {
-        if (!this.isCluster(clusterX)) {
-            return false;
-        }
-        if (!this.isCluster(clusterY)) {
-            return false;
-        }
         if (this.graph.vertices.indexOf(v) === -1) {
             return false;
         }
@@ -215,10 +209,6 @@ class Scan {
             hubs: hubs,
             outliers: outliers
         }
-    }
-
-    createCache() {
-
     }
 }
 
