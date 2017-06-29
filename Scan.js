@@ -172,7 +172,7 @@ class Scan {
         var outliers = [];
 
         this.graph.vertices.forEach(v => {
-            if ((classifiedVertices.indexOf(v) !== -1) && (this.isCore(v))) {
+            if ((classifiedVertices.indexOf(v) === -1) && (this.isCore(v))) {
                 var newCluster = [];
                 clustering.push(newCluster);
                 var queue = this.epsNeighborhood(v);
