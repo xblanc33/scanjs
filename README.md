@@ -14,7 +14,22 @@ It provides two JS classes.
 npm install scanjs
 
 
-# use it
+# documentation
+
+## Graph.js
+
+* var graph = new Graph(); //to create a graph
+* graph.addVertice(label); //to add a vertice (labels can be numbers)
+* graph.addEdge(label1, label2); //add a non directed edge
+* graph.saveCSV(fileName, head, callback); //save graph to CSV. Add labels in first row if head=true
+* Graph.loadCSV(fileName, head, callback); //static method to load a graph from a CSV file (callback(err,graph))
+
+## Scan.js
+
+* var scan = new Scan(eps, mu, graph); //eps is the distance, mu is the neighborhood size
+* scan.doClustering(); //creates the clusters. Return an object {clustering:[[],[]], hubs:[], outliers:[]}
+
+# example
 
 ~~~~
 Graph = require('scanjs').Graph;
