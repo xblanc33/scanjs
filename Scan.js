@@ -1,10 +1,10 @@
 var Cache = require('./Cache.js').Cache;
 
 class Scan {
-    constructor(eps, mu, graph) {
+    constructor(eps, mu, graph, similarity) {
         this.eps = eps;
         this.mu = mu;
-        this.cache = new Cache(graph, eps, mu);
+        this.cache = new Cache(eps, mu, graph, similarity);
         this.graph = graph;
     }
 

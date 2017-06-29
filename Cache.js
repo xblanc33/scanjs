@@ -1,9 +1,9 @@
 class Cache {
-    constructor(graph, eps, mu) {
+    constructor(eps, mu, graph, similarity) {
         this.graph = graph;
         this.eps = eps;
         this.mu = mu;
-        this.similarityCache = this.computeSimilarityCache();
+        this.similarityCache = similarity || this.computeSimilarityCache();
         this.epsNeighborhoodCache = this.computeEpsNeighborhood();
         this.isCoreCache = this.computeIsCoreCache();
     }
