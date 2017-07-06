@@ -5,20 +5,10 @@ module.exports = function(grunt) {
             coverage: {
                 src: 'test', // a folder works nicely
                 options: {
-                    mask: '*.js'
-                }
-            },
-            coveralls: {
-                src: ['test'],
-                // Options relevant to all targets
-                options: {
-                    coverage: true, // this will make the grunt.event.on('coverage') event listener to be triggered
                     reportFormats: ['lcovonly']
                 }
-
             }
         },
-
         mochaTest: {
             test: {
                 options: {
@@ -28,22 +18,37 @@ module.exports = function(grunt) {
             }
         },
 
+        coveralls: {
+            // Options relevant to all targets
+            options: {
+                // When true, grunt-coveralls will only print a warning rather than
+                // an error, to prevent CI builds from failing unnecessarily (e.g. if
+                // coveralls.io is down). Optional, defaults to false.
+                force: false
+            },
 
-    });
+            your_target: {
+                // LCOV coverage file (can be string, glob or array)
+                src: 'coverage/lcov.info',
+                options: {
+                    // Any options for just this target
+                }
+            },
+        }
 
-    grunt.event.on('coverage', function(lcovFileContents, done) {
-        // Check below on the section "The coverage event"
-        done();
+
+
     });
 
 
     //grunt.loadNpmTasks('grunt-coveralls');
     grunt.loadNpmTasks('grunt-mocha-istanbul');
     grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-coveralls');
 
     grunt.registerTask('coverage', ['mocha_istanbul:coverage']);
-    grunt.registerTask('coveralls', ['mocha_istanbul:coveralls']);
     grunt.registerTask('mocha', ['mochaTest']);
+    grunt.registerTask('coverallio', ['coveralls'])
 
 
 };
