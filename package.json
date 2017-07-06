@@ -18,6 +18,10 @@
   "homepage": "https://github.com/xblanc33/scanjs#readme",
   "devDependencies": {
     "coveralls": "^2.13.1",
+    "grunt": "^1.0.1",
+    "grunt-mocha-istanbul": "^5.0.2",
+    "grunt-mocha-test": "^0.13.2",
+    "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
     "mocha-lcov-reporter": "^1.3.0"
   }
