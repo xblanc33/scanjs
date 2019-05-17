@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/xblanc33/scanjs/badge.svg?branch=master)](https://coveralls.io/github/xblanc33/scanjs?branch=master)
 
 # scanjs
-ScanJS implements the Strucural Clustering Algorithm designed by Xiaowei Xu, Nurcan Yuruk, Zhidan Feng and Thomas A. J. Schweiger [PDF] (https://www.cise.ufl.edu/~cis4930fa07dm/project/Scan.pdf)
+ScanJS implements the Strucural Clustering Algorithm designed by Xiaowei Xu, Nurcan Yuruk, Zhidan Feng and Thomas A. J. Schweiger [PDF] (http://www1.se.cuhk.edu.hk/~hcheng/seg5010/slides/p824-xu.pdf)
 
 It provides two JS classes.
 
